@@ -45,7 +45,7 @@ public class TaskService {
 
     public List<Task> getTasks(){
 
-        ArrayList<Task> tasks = null;
+        List<Task> tasks = null;
         try {
             tasks = mapper.readValue(file, new TypeReference<ArrayList<Task>>(){});
         } catch (IOException e) {
@@ -57,7 +57,7 @@ public class TaskService {
     public void showAll(){
 
         try{
-                ArrayList<Task> tasks = (ArrayList<Task>) getTasks();
+                List<Task> tasks = (ArrayList<Task>) getTasks();
             for (int i = 1; i <= tasks.size(); i++) {
                     System.out.println(i + " " + tasks.get(i - 1).getContent() + " " + (tasks.get(i - 1).isDone() ? "\u2713" : ""));
             }
@@ -80,6 +80,17 @@ public class TaskService {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void delete(int id){
+        try{
+            List<Task> tasks = getTasks();
+            tasks.remove(id);
+            mapper.writeValue(file, tasks);
+            System.out.println("Задача удалена");
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

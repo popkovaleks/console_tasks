@@ -26,7 +26,22 @@ public class Main {
                     service.showAll();
                     break;
                 case "/done":
-                    service.markAsDone(Integer.valueOf(splittedCommand[1]));
+                    if (splittedCommand.length > 1 && splittedCommand.length < 3 ){
+                        if (splittedCommand[1].matches("\\d+")) {
+                            service.markAsDone(Integer.valueOf(splittedCommand[1]));
+                            break;
+                        }
+                    }
+                    System.out.println("Передайте целочисленное значение");
+                    break;
+                case "/delete":
+                    if (splittedCommand.length > 1 && splittedCommand.length < 3 ){
+                        if (splittedCommand[1].matches("\\d+")) {
+                            service.delete(Integer.valueOf(splittedCommand[1]));
+                            break;
+                        }
+                    }
+                    System.out.println("Передайте целочисленное значение");
                     break;
                 case "/help":
                     showHelpScreen();
